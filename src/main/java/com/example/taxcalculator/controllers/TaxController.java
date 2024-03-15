@@ -33,20 +33,7 @@ public class TaxController {
         System.out.println("taxes = " + taxes.size());
         List<Result> results = new ArrayList<>();
 
-        List<Tax> filteredTaxes = new ArrayList<>();
-        Double tempSalary = salary;
-        if (!taxes.isEmpty()) {
-            for (int t = 0; t < taxes.size(); t++) {
-                Tax tempTax = taxes.get(t);
-                if (tempTax.getLower_annual_salary_limit() <= tempSalary){
-                    filteredTaxes.add(tempTax);
-                    if (tempTax.getUpper_annual_salary_limit() != null){
-                    tempSalary = tempSalary - tempTax.getUpper_annual_salary_limit();}
-                }
-            }
-        }
-
-        results.add(taxService.calculate(filteredTaxes, salary));
+        results.add(taxService.calculate(taxes, salary));
         model.addAttribute("results", results);
         return "result";
     }

@@ -12,7 +12,7 @@ Sök
     <nav class="nav" role="navigation">
         <div class="container nav-elements">
             <ul class="navbar">
-                <li><a href="/home">home</a></li>
+                <li><a href="/">home</a></li>
                 <li><a href="/goToTax">Tax calculation</a></li>
             </ul><!-- navbar -->
         </div><!-- container nav-elements -->

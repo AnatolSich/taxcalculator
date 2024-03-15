@@ -15,26 +15,18 @@ import java.util.stream.Collectors;
 public class TaxService {
 
     public Result calculate(List<Tax> taxes, Double salary){
-        System.out.println("in TaxService");
-        System.out.println("taxes = " + taxes.size());
-
         Result result = new Result();
         result.setGrossAnnualSalary(roundTwoDecimals(salary));
         Double grossMonthlySalary = salary/12;
-        System.out.println("grossMonthlySalary: " + grossMonthlySalary);
         result.setGrossMonthlySalary(roundTwoDecimals(grossMonthlySalary));
 
         Double taxAmount = calculateTaxAmount(taxes, salary);
 
-        System.out.println("taxAmount: " + taxAmount);
         result.setAnnualTaxPaid(roundTwoDecimals(taxAmount));
         result.setNetAnnualSalary(roundTwoDecimals(salary - taxAmount));
-        System.out.println("setNetAnnualSalary: " + result.getNetAnnualSalary());
         Double monthlyTaxPaid = taxAmount/12;
-        System.out.println("monthlyTaxPaid: " + monthlyTaxPaid);
         result.setMonthlyTaxPaid(roundTwoDecimals(monthlyTaxPaid));
         result.setNetMonthlySalary(roundTwoDecimals(grossMonthlySalary - monthlyTaxPaid));
-        System.out.println("setNetMonthlySalary: " + result.getNetMonthlySalary());
 
         return result;
     }
@@ -49,33 +41,22 @@ public class TaxService {
                 Double lowerAnnualSalaryLimit = tempTax.getLower_annual_salary_limit();
                 Double upperAnnualSalaryLimit = tempTax.getUpper_annual_salary_limit();
                 Double taxRate = tempTax.getTax_rate() / 100;
-                System.out.println("id = " + tempTax.getId());
-                System.out.println("upperAnnualSalaryLimit = " + upperAnnualSalaryLimit);
 
                 if (upperAnnualSalaryLimit == null || upperAnnualSalaryLimit >= tempSalary){
                     taxAmount = taxAmount + tempSalary * taxRate;
-                    System.out.println("taxAmount = " + taxAmount);
-                    System.out.println("tempSalary = " + tempSalary);
                     return taxAmount;
                 } else {
                     taxAmount = taxAmount + (upperAnnualSalaryLimit-lowerAnnualSalaryLimit) * taxRate;
                     tempSalary = tempSalary - (upperAnnualSalaryLimit-lowerAnnualSalaryLimit);
-                    System.out.println("taxAmount = " + taxAmount);
-                    System.out.println("tempSalary = " + tempSalary);
-
                 }
             }
         }
         return taxAmount;
     }
 
-    private static Double roundTwoDecimal(Double initial){
-        DecimalFormat twoDForm = new DecimalFormat("#.00");
-        return Double.valueOf(twoDForm.format(initial));
-    }
     private static BigDecimal roundTwoDecimals(Double initial){
         BigDecimal a = new BigDecimal(initial);
-        return a.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        return a.setScale(2, RoundingMode.HALF_EVEN);
     }
 
 

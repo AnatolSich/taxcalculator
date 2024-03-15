@@ -14,7 +14,7 @@
 			<div class="container nav-elements">
 				<ul class="navbar">
             <ul class="navbar">
-                <li><a href="/home">home</a></li>
+                <li><a href="/">home</a></li>
                 <li><a href="/goToTax">calculate</a></li>
                             </ul><!-- navbar -->
 				<!-- navbar -->

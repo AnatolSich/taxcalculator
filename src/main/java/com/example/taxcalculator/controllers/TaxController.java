@@ -26,11 +26,8 @@ public class TaxController {
 
     @GetMapping("/tax")
     public String search(@RequestParam("salary") Double salary, Model model){
-        System.out.println("in salary controller");
-        System.out.println("salary: " + salary);
 
         List<Tax> taxes = taxRepository.findAll(Sort.by("name"));
-        System.out.println("taxes = " + taxes.size());
         List<Result> results = new ArrayList<>();
 
         results.add(taxService.calculate(taxes, salary));

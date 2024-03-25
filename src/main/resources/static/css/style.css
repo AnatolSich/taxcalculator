@@ -294,7 +294,7 @@ em {
 		background-repeat: no-repeat;
 		background-position: bottom right;
 		background-size: 30% auto;
-		min-height: 100vh
+		min-height: 50vh
 	}
 	#history .text-content {
 		width: 70%
@@ -430,7 +430,7 @@ to {
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: cover;
-	height: 100vh;
+	height: 50vh;
 	max-height: 60vh
 }
 

@@ -1,7 +1,7 @@
 CREATE DATABASE  IF NOT EXISTS `tax`;
 USE `tax`;
 
-DROP TABLE IF EXISTS `tax_band`;
+DROP TABLE IF EXISTS `tax`;
 
 CREATE TABLE `tax` (
   `id` int(11) NOT NULL,

@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TaxService {
@@ -32,22 +29,21 @@ public class TaxService {
     }
 
     private static Double calculateTaxAmount(List<Tax> taxes, Double salary) {
-        Double taxAmount = 0d;
+        double taxAmount = 0d;
 
         Double tempSalary = salary;
         if (!taxes.isEmpty()) {
-            for (int t = 0; t < taxes.size(); t++) {
-                Tax tempTax = taxes.get(t);
+            for (Tax tempTax : taxes) {
                 Double lowerAnnualSalaryLimit = tempTax.getLower_annual_salary_limit();
                 Double upperAnnualSalaryLimit = tempTax.getUpper_annual_salary_limit();
                 Double taxRate = tempTax.getTax_rate() / 100;
 
-                if (upperAnnualSalaryLimit == null || upperAnnualSalaryLimit >= tempSalary){
+                if (upperAnnualSalaryLimit == null || upperAnnualSalaryLimit >= tempSalary) {
                     taxAmount = taxAmount + tempSalary * taxRate;
                     return taxAmount;
                 } else {
-                    taxAmount = taxAmount + (upperAnnualSalaryLimit-lowerAnnualSalaryLimit) * taxRate;
-                    tempSalary = tempSalary - (upperAnnualSalaryLimit-lowerAnnualSalaryLimit);
+                    taxAmount = taxAmount + (upperAnnualSalaryLimit - lowerAnnualSalaryLimit) * taxRate;
+                    tempSalary = tempSalary - (upperAnnualSalaryLimit - lowerAnnualSalaryLimit);
                 }
             }
         }
